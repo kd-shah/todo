@@ -2,22 +2,22 @@ import "./style.scss";
 import  InputView  from "../../Shared/InputView";
 import  Button  from "../../Shared/Button";
 import { Tasks } from "./Components/Tasks";
-import useLogic from "./useLogic";
+import useLogic from "./Controller";
 
 export default function ToDoCreator() {
 
-  const [cancelEdit,
+  const {cancelEdit,
     saveTask,
     edit,
     onChangeCheckBox,
     clear,
     add,
     clearAll,
-    up,
     down,
+    up,
     editTaskRef,
     inputRef,
-    todoItems] = useLogic() 
+    todoItems} = useLogic() 
 
     return (
     <>

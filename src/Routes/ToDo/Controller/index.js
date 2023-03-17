@@ -109,7 +109,7 @@ export default function useLogic() {
     settodoItem([...todoItems]);
   };
 
-  return [
+  return {
     cancelEdit,
     saveTask,
     edit,
@@ -122,7 +122,7 @@ export default function useLogic() {
     editTaskRef,
     inputRef,
     todoItems,
-  ];
+};
 
   
 }
