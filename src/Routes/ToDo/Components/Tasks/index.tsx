@@ -6,9 +6,10 @@ import  InputView  from "../../../../Shared/InputView";
 import { FaChevronUp , FaChevronDown  } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
+import type {tasks , taskfunctions} from "../../../../Type";
 
-export const Tasks = ({
-  todos,
+export const Tasks  = ({
+  todos ,
   down,
   clear,
   up,
@@ -17,8 +18,8 @@ export const Tasks = ({
   cancelEdit,
   saveTask,
   editTaskRef,
-}) => {
-  const tasklist = todos?.map((task, index) => {
+} : taskfunctions ) => {
+  const tasklist = todos?.map((task : tasks, index : number ) => {
     return (
       <div
         className={task.isActive ? "list" : "inActiveTask"} //Class Selection
@@ -40,34 +41,30 @@ export const Tasks = ({
         )}
 
         <IconButton
-          className="buttons"
           onClick={() => clear(task.id)}
           title={"Delete Task"}
-          icon={<AiFillDelete className="icons" />}
+          icon ={<AiFillDelete  />}
         />
 
         <IconButton
           disabled={index === todos.length - 1 ? true : false}
-          className="buttons"
           onClick={() => down(task.id)}
           title={"Move Task Down"}
-          icon={<FaChevronDown className="icons" />}
+          icon={<FaChevronDown />}
         />
 
         <IconButton
           disabled={index === 0 ? true : false}
-          className="buttons"
           onClick={() => up(task.id)}
           title={"Move Task Up"}
-          icon={<FaChevronUp className="icons" />}
+          icon ={<FaChevronUp />}
         />
 
         <IconButton
-          className="buttons"
           disabled={task.isEditing ? true : false}
           onClick={() => edit(task.id)}
           title={"Edit Task"}
-          icon={<MdModeEditOutline className="icons" />}
+          icon={<MdModeEditOutline  />}
         />
       </div>
     );

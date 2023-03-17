@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
+import type {inputView} from "../Type";
 
-export default function InputView  (props)  {
+export default function InputView  (props : inputView)  {
   return (
     <>
       <input
@@ -18,4 +19,5 @@ InputView.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  // refer: PropTypes.string
 };

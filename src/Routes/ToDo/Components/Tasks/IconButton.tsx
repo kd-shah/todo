@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
+import { iconButton } from "../../../../Type";
 
-export default function IconButton (props) {
+export default function IconButton (props : iconButton) {
   return (
     <button
       className="buttons"
@@ -8,7 +9,7 @@ export default function IconButton (props) {
       disabled={props.disabled}
       title={props.title}
     >
-      {props.icon}
+    {props.icon}
     </button>
   );
 };

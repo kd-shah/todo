@@ -1,28 +1,33 @@
+import "./style.scss";
+import InputView from "../../Shared/InputView";
+import Button from "../../Shared/Button";
+import { Tasks } from "./Components/Tasks";
 import { useState, useRef } from "react";
+import { tasks } from "../../Type";
 
 
-export default function useLogic() {
-  const [todoItems, settodoItem] = useState([]);
+export default function ToDoCreator() {
+  const [todoItems, settodoItem] = useState<tasks[]>([]);
 
-  const inputRef = useRef("");
-  const editTaskRef = useRef("");
+  const inputRef  = useRef<HTMLInputElement>(null);
+  const editTaskRef = useRef<HTMLInputElement>(null);
 
   //Adding a Task
   const add = () => {
-    if (inputRef.current.value === "") {
+    if (inputRef.current?.value === "") {
       alert("Task Cannot be Empty");
     } else {
       settodoItem([
         ...todoItems,
         {
           id: todoItems.length,
-          item: inputRef.current.value,
+          item: inputRef.current?.value,
           isActive: true,
           isEditing: false,
         },
       ]);
     }
-    inputRef.current.value = "";
+      // inputRef.current.value = "";
   };
 
   //Clear All Tasks
@@ -31,13 +36,13 @@ export default function useLogic() {
   };
 
   //Clear Task
-  const clear = (taskid) => {
+  const clear = (taskid : number)  => {
     const newList = todoItems.filter((taskitem) => taskitem.id !== taskid);
     settodoItem(newList);
   };
 
   //Move Task Up
-  const up = (taskid) => {
+  const up = (taskid : number) => {
     const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
     if (index !== 0) {
       let tempObj = todoItems[index - 1];
@@ -48,7 +53,7 @@ export default function useLogic() {
   };
 
   //Move Task Down
-  const down = (taskid) => {
+  const down = (taskid : number) => {
     const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
     console.log(index);
     todoItems[index] = todoItems.splice(index + 1, 1, todoItems[index])[0];
@@ -56,7 +61,7 @@ export default function useLogic() {
   };
 
   //Changing Task status through Check box
-  const onChangeCheckBox = (taskid) => {
+  const onChangeCheckBox = (taskid : number ) => {
     const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
 
     todoItems[index].isActive = todoItems[index].isActive ? false : true;
@@ -66,7 +71,7 @@ export default function useLogic() {
 
   // Edit Task
 
-  const edit = (taskid) => {
+  const edit = (taskid : number) => {
     const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
     for (let i = 0; i <= todoItems.length - 1; i++) {
       if (todoItems[i].isEditing === true) {
@@ -88,7 +93,7 @@ export default function useLogic() {
   };
 
   // Save Edited Task
-  const saveTask = (taskid) => {
+  const saveTask = (taskid : number) => {
     const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
     const tempTask = todoItems[index].item;
     if (editTaskRef.current?.value !== "") {
@@ -103,26 +108,39 @@ export default function useLogic() {
   };
 
   // Cancel Editing Task
-  const cancelEdit = (taskid) => {
+  const cancelEdit = (taskid : number) => {
     const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
     todoItems[index].isEditing = false;
     settodoItem([...todoItems]);
   };
 
-  return [
-    cancelEdit,
-    saveTask,
-    edit,
-    onChangeCheckBox,
-    clear,
-    add,
-    clearAll,
-    up,
-    down,
-    editTaskRef,
-    inputRef,
-    todoItems,
-  ];
-
   
+
+  return (
+    <>
+      <div className="background">
+        <h1 className="heading">TODO LIST</h1>
+
+        <InputView placeholder={"Enter Text here"} refer={inputRef} />
+
+        <Button name={"Add"} onClick={add} />
+
+        <Button name={"Clear All"} onClick={clearAll} />
+      </div>
+
+      {todoItems.length === 0 && <div className="noTask">No Tasks</div>}
+
+      <Tasks
+        todos={todoItems}
+        up={up}
+        down={down}
+        clear={clear}
+        onChangeCheckBox={onChangeCheckBox}
+        edit={edit}
+        saveTask={saveTask}
+        cancelEdit={cancelEdit}
+        editTaskRef={editTaskRef}
+      />
+    </>
+  );
 }
