@@ -1,12 +1,13 @@
 import "./style.scss";
 import  ToDoItem  from "./ToDoItem";
-import  Button  from "../../../../Shared/Button";
+import  Button  from "Shared/Button";
 import  IconButton  from "./IconButton";
-import  InputView  from "../../../../Shared/InputView";
+import  InputView  from "Shared/InputView";
 import { FaChevronUp , FaChevronDown  } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
-import type {tasks , taskfunctions} from "../../../../Type";
+import type {tasks , taskfunctions} from "Type";
+
 
 export const Tasks  = ({
   todos ,

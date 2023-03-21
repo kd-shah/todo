@@ -1,9 +1,9 @@
 import "./style.scss";
-import InputView from "../../Shared/InputView";
-import Button from "../../Shared/Button";
+import InputView from "Shared/InputView";
+import Button from "Shared/Button";
 import { Tasks } from "./Components/Tasks";
 import { useState, useRef } from "react";
-import { tasks } from "../../Type";
+import { tasks } from "Type";
 
 
 export default function ToDoCreator() {
@@ -26,8 +26,9 @@ export default function ToDoCreator() {
           isEditing: false,
         },
       ]);
+       
     }
-      // inputRef.current.value = "";
+       //inputRef.current.value = "";
   };
 
   //Clear All Tasks

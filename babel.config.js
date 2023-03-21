@@ -10,7 +10,7 @@ module.exports = function (api) {
         {
           alias: {
             
-            Shared: './Shared',
+            Shared: '../../../../Shared',
             
           },
         }

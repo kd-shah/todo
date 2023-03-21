@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { button } from "../Type";
+import { button } from "Type";
 
 export default function Button (props : button) {
   return (

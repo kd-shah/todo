@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import type {inputView} from "../Type";
+import type {inputView} from "Type";
 
 export default function InputView  (props : inputView)  {
   return (

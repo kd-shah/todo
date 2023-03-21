@@ -12,7 +12,7 @@ interface tasks {
 interface inputView {
     value? : string
     placeholder?: string
-    refer?: MutableRefObject<HTMLInputElement | null>  
+    refer: MutableRefObject<HTMLInputElement | null>  
 }
 
 interface taskfunctions{
