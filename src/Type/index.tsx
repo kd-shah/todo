@@ -3,10 +3,10 @@ import { MutableRefObject } from "react"
 
 
 interface tasks {
-    id : number,
+    //id : number,
     item : string | undefined,
-    isActive : boolean,
-    isEditing : boolean
+    //isActive : boolean,
+    //isEditing : boolean
 }
 
 interface inputView {
@@ -17,20 +17,20 @@ interface inputView {
 
 interface taskfunctions{
   todos : tasks[]
-  down: (id : number) => void  
-  clear : (id : number) => void
-  up : (id : number) => void 
-  edit : (id : number) => void 
-  onChangeCheckBox : (id : number) => void 
-  cancelEdit : (id : number) => void 
-  saveTask : (id : number) => void 
-  editTaskRef :  MutableRefObject<HTMLInputElement | null>
+//   down: (id : number) => void  
+//   clear : (id : number) => void
+//   up : (id : number) => void 
+//   edit : (id : number) => void 
+//   onChangeCheckBox : (id : number) => void 
+//   cancelEdit : (id : number) => void 
+//   saveTask : (id : number) => void 
+//   editTaskRef :  MutableRefObject<HTMLInputElement | null>
 
 }
 
 interface todoItem{
-    onChange : () => void
-    checked : boolean
+    //onChange : () => void
+    //checked : boolean
     value?: string
 }
 

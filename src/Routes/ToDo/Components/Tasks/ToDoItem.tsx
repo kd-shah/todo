@@ -5,10 +5,10 @@ export default function ToDoItem (props : todoItem) {
   return (
     <label>
       <input
-        type="checkbox"
-        onChange={props.onChange}
+        //type="checkbox"
+        //onChange={props.onChange}
         className="check"
-        checked={props.checked}
+        //checked={props.checked}
       />
       {props.value}
     </label>
