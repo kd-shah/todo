@@ -1,133 +1,105 @@
 import "./style.scss";
-import  InputView  from "../../Shared/InputView";
-import  Button  from "../../Shared/Button";
+import InputView from "../../Shared/InputView";
+import Button from "../../Shared/Button";
 import { Tasks } from "./Components/Tasks";
 import { useState, useRef } from "react";
+import { addToDo , deleteAll, onCheckBox, clearTask , moveUp, moveDown , editTask , saveEditTask, cancelEditTask} from "../../App/Slicer/ToDoSlicer";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ToDoCreator() {
-  const [todoItems, settodoItem] = useState([]);
+
+  const [value, setValue] = useState("");
 
   const inputRef = useRef("");
   const editTaskRef = useRef("");
+  const dispatch = useDispatch();
 
-  //Adding a Task
+  const todos = useSelector((state) => state.todos);
+
   const add = () => {
-    if (inputRef.current.value === "") {
-      alert("Task Cannot be Empty");
-    } else {
-      settodoItem([
-        ...todoItems,
-        {
-          id: todoItems.length,
-          item: inputRef.current.value,
-          isActive: true,
-          isEditing: false,
-        },
-      ]);
-    }
+    console.log(inputRef.current.value);
+    console.log(todos.length);
+    dispatch(
+      addToDo({ id: todos.length + 1, item: inputRef.current.value })
+    );
     inputRef.current.value = "";
   };
+  // const add = () => {
+  //   console.log(value);
+  //   console.log(todos.length);
+  //   dispatch(addToDo({id: todos.length +1, item: value}));
+  // }
 
-  //Clear All Tasks
   const clearAll = () => {
-    settodoItem([]);
-  };
+    dispatch(
+      deleteAll()
+    );
+  }
 
-  //Clear Task
-  const clear = (taskid) => {
-    const newList = todoItems.filter((taskitem) => taskitem.id !== taskid);
-    settodoItem(newList);
-  };
-
-  //Move Task Up
-  const up = (taskid) => {
-    const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
-    if (index !== 0) {
-      let tempObj = todoItems[index - 1];
-      todoItems[index - 1] = todoItems[index];
-      todoItems[index] = tempObj;
-    }
-    settodoItem([...todoItems]);
-  };
-
-  //Move Task Down
-  const down = (taskid) => {
-    const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
-    console.log(index);
-    todoItems[index] = todoItems.splice(index + 1, 1, todoItems[index])[0];
-    settodoItem([...todoItems]);
-  };
-
-  //Changing Task status through Check box
   const onChangeCheckBox = (taskid) => {
-    const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
-
-    todoItems[index].isActive = todoItems[index].isActive ? false : true;
-    console.log(todoItems[index].isActive);
-    settodoItem([...todoItems]);
+    const index = todos.findIndex((taskitem) => taskitem.id === taskid);
+    dispatch(onCheckBox(index))
   };
 
-  // Edit Task
+  const clear = (taskid) => {
+    const index = todos.findIndex((taskitem) => taskitem.id === taskid)
+    dispatch(clearTask(index))
+  }
+
+  const up = (taskid) => {
+    const index = todos.findIndex((taskitem) => taskitem.id === taskid)
+    console.log(index)
+    dispatch(moveUp(index))
+  }
+
+  const down = (taskid) => {
+    const index = todos.findIndex((taskitem) => taskitem.id === taskid)
+    console.log(index)
+    dispatch(moveDown(index))
+  }
 
   const edit = (taskid) => {
-    const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
-    for (let i = 0; i <= todoItems.length - 1; i++) {
-      if (todoItems[i].isEditing === true) {
-        if (
-          window.confirm(
-            "One Task is already being edited. Press OK to edit the new Task."
-          )
-        ) {
-          todoItems[i].isEditing = false;
-          settodoItem([...todoItems]);
-          todoItems[index].isEditing = true;
-        }
-        return;
-      }
-    }
-
-    settodoItem([...todoItems]);
-    todoItems[index].isEditing = true;
+    const index = todos.findIndex((taskitem) => taskitem.id === taskid);
+    dispatch(editTask(index))
   };
 
   // Save Edited Task
   const saveTask = (taskid) => {
-    const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
-    const tempTask = todoItems[index].item;
-    if (editTaskRef.current?.value !== "") {
-      todoItems[index].item = editTaskRef.current?.value;
-    } else {
-      alert("Invalid");
-      todoItems[index].item = tempTask;
-    }
-
-    settodoItem([...todoItems]);
-    todoItems[index].isEditing = false;
+    const index = todos.findIndex((taskitem) => taskitem.id === taskid);
+    const editTaskInput = editTaskRef.current?.value;
+    dispatch(saveEditTask({ind : index , editedTask: editTaskInput}))
+    
+   
   };
 
   // Cancel Editing Task
   const cancelEdit = (taskid) => {
-    const index = todoItems.findIndex((taskitem) => taskitem.id === taskid);
-    todoItems[index].isEditing = false;
-    settodoItem([...todoItems]);
+    const index = todos.findIndex((taskitem) => taskitem.id === taskid);
+    dispatch(cancelEditTask(index))
   };
+
 
   return (
     <>
       <div className="background">
         <h1 className="heading">TODO LIST</h1>
 
-        <InputView placeholder={"Enter Text here"} refer={inputRef} />
+        <InputView
+          placeholder={"Enter Text here"}
+          refer={inputRef}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+        />
 
         <Button name={"Add"} onClick={add} />
 
         <Button name={"Clear All"} onClick={clearAll} />
       </div>
 
-      {todoItems.length === 0 && <div className="noTask">No Tasks</div>}
+      {todos.length === 0 && <div className="noTask">No Tasks</div>}
 
       <Tasks
-        todos={todoItems}
+        todos={todos}
         up={up}
         down={down}
         clear={clear}
@@ -140,5 +112,3 @@ export default function ToDoCreator() {
     </>
   );
 }
-
-

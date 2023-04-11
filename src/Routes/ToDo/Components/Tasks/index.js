@@ -1,9 +1,9 @@
 import "./style.scss";
-import  ToDoItem  from "./ToDoItem";
-import  Button  from "../../../../Shared/Button";
-import  IconButton  from "./IconButton";
-import  InputView  from "../../../../Shared/InputView";
-import { FaChevronUp , FaChevronDown  } from "react-icons/fa";
+import ToDoItem from "./ToDoItem";
+import Button from "../../../../Shared/Button";
+import IconButton from "./IconButton";
+import InputView from "../../../../Shared/InputView";
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 
@@ -31,7 +31,8 @@ export const Tasks = ({
             <Button name={"Save"} onClick={() => saveTask(task.id)} />
             <Button name={"Cancel"} onClick={() => cancelEdit(task.id)} />
           </>
-        ) : (
+        ) : 
+        (
           <ToDoItem
             value={task.item}
             onChange={() => onChangeCheckBox(task.id)}
@@ -60,7 +61,7 @@ export const Tasks = ({
           onClick={() => up(task.id)}
           title={"Move Task Up"}
           icon={<FaChevronUp className="icons" />}
-        />
+        /> 
 
         <IconButton
           className="buttons"
@@ -71,6 +72,14 @@ export const Tasks = ({
         />
       </div>
     );
+
+    // return (
+    //   <div key={task.id}>
+        
+    //     <ToDoItem value={task.item} onChange={() => onChangeCheckBox(task.id)}
+    //         checked={task.isActive ? false : true}/>
+    //   </div>
+    // );
   });
   return <>{tasklist}</>;
 };

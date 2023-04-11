@@ -9,6 +9,8 @@ export default function InputView  (props)  {
         defaultValue={props.value}
         placeholder={props.placeholder}
         ref={props.refer}
+        // value = {props.value}
+        onChange={props.onChange}
       />
     </>
   );
