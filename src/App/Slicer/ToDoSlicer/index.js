@@ -1,8 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// const initialState= {
-//     todos: ["hi"]
-// };
 
 const todoSlice = createSlice({
   name: "todos",
@@ -10,8 +7,8 @@ const todoSlice = createSlice({
   reducers: {
     addToDo: (state, action) => {
       const todo = {
-        id: action.payload.id,
-        item: action.payload.item,
+        id: state.length+1,
+        item: action.payload,
         isActive: true,
         isEditing: false,
       };
@@ -24,17 +21,20 @@ const todoSlice = createSlice({
       return [];
     },
 
-    onCheckBox: (state, action) => {
-      state[action.payload].isActive = state[action.payload].isActive? false : true;
-      return state;
-    },
-
     clearTask: (state, action) => {
       const newList = state.filter(
         (taskitem) => taskitem.id !== action.payload
       );
       return newList;
+      //return state.filter((taskitem) => taskitem.id !== action.payload);
     },
+
+    onCheckBox: (state, action) => {
+      state[action.payload].isActive = state[action.payload].isActive? false : true;
+      return state;
+    },
+
+    
 
     moveUp: (state, action) => {
       if (action.payload !== 0) {
