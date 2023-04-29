@@ -14,8 +14,8 @@ export default function InputView  (props)  {
   );
 };
 
-InputView.propTypes = {
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  onChange: PropTypes.func,
-};
+// InputView.propTypes = {
+//   value: PropTypes.string,
+//   placeholder: PropTypes.string,
+//   onChange: PropTypes.func,
+// };
